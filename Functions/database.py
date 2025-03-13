@@ -1,7 +1,7 @@
 # This File Contains All Python Functions Used for Database
 import sqlite3
 
-def InitializeDatabase(file_path, db_name):
+def InitializeDatabase(db_name, file_path):
     # Open the .sql file
     with open(file_path, 'r') as file:
         sql_queries = file.read()
@@ -17,6 +17,23 @@ def InitializeDatabase(file_path, db_name):
     conn.commit()
     conn.close()
     print(f"Database setup complete from {file_path}")
+
+def PopulateDatabase(db_name, file_path):
+    # Open the .sql file
+    with open(file_path, 'r') as file:
+        sql_queries = file.read()
+    
+    # Connect to the SQLite database
+    conn = sqlite3.connect(db_name)
+    cursor = conn.cursor()
+    
+    # Execute the queries from the file
+    cursor.executescript(sql_queries)
+    
+    # Commit the changes and close the connection
+    conn.commit()
+    conn.close()
+    print(f"Database population complete from {file_path}")
 
 def PrintCharacters(db_name):
     # Connect to the SQLite database
