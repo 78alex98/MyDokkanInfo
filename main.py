@@ -1,9 +1,10 @@
-from Functions.database import InitializeDatabase, PopulateDatabase, PrintCharacters
+from Functions.database import *                        # Contains All Functions Related to Database
 
-db_file = 'Database/dokkan_battle.db'  # Name of your SQLite database file
-create_file = 'Database/create_tables.sql'  # Path to your SQL file
-populate_file = 'Database/populate_tables.sql'
+db_file = 'Database/dokkan_battle.db'                   # SQLite DataBase File Path
+create_file = 'Database/create_tables.sql'              # SQL File Path for Creating Database Tables
+populate_file = 'Database/populate_tables.sql'          # SQL File Path for Populating Database
 
+# Main Code
 print("Welcome to MyDokkanInfo")
 InitializeDatabase(db_file, create_file)
 PopulateDatabase(db_file, populate_file)
