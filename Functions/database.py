@@ -82,3 +82,33 @@ def PrintCharacters(db_name):
 
     # Closes Connection
     conn.close()
+
+"""
+PrintLinks() Funtion
+
+Parameters: Database File Path
+
+Grabs all the information in the links_list table from the database
+and prints it to the console
+"""
+def PrintLinks(db_name):
+    # Connects to the SQLite database
+    conn = sqlite3.connect(db_name)
+    cursor = conn.cursor()
+
+    # Executes Query to Grab Info
+    cursor.execute("SELECT * FROM links_list")
+
+    # Grabs Results from Query
+    rows = cursor.fetchall()
+
+    # Prints Collumn Headers
+    column_names = [description[0] for description in cursor.description]
+    print("\t\t".join(column_names))
+
+    # Prints Each Row in Table
+    for row in rows:
+        print("\t\t".join(str(value) for value in row))
+
+    # Closes Connection
+    conn.close()
