@@ -9,6 +9,8 @@ DROP TABLE IF EXISTS links_list;
 DROP TABLE IF EXISTS links_character;
 DROP TABLE IF EXISTS categories_list;
 DROP TABLE IF EXISTS categories_character;
+DROP TABLE IF EXISTS eza_connector
+
 
 -- Create characters table
 CREATE TABLE IF NOT EXISTS characters (
@@ -127,4 +129,13 @@ CREATE TABLE IF NOT EXISTS categories_character (
     FOREIGN KEY (char_id) REFERENCES characters(char_id) ON DELETE CASCADE,
     FOREIGN KEY (category_id) REFERENCES categories_list(category_id) ON DELETE CASCADE,
     PRIMARY KEY (char_id, category_id)
+);
+
+CREATE TABLE IF NOT EXISTS eza_connector(
+    eza_conn_id INTEGER PRIMARY KEY,
+    char_id INTEGER,
+    base_id INTEGER,
+    eza_id INTEGER,
+    seza_id INTEGER,
+    FOREIGN KEY (char_id) REFERENCES characters(char_id) ON DELETE CASCADE
 );

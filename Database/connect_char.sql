@@ -1,0 +1,1 @@
+-- Used to populate the eza_connector table
