@@ -9,14 +9,27 @@ DROP TABLE IF EXISTS links_list;
 DROP TABLE IF EXISTS links_character;
 DROP TABLE IF EXISTS categories_list;
 DROP TABLE IF EXISTS categories_character;
-DROP TABLE IF EXISTS eza_connector
+DROP TABLE IF EXISTS eza_connector;
 
 
 -- Create characters table
 CREATE TABLE IF NOT EXISTS characters (
     char_id INTEGER PRIMARY KEY,
     name TEXT,
-    type TEXT
+    sub_name TEXT,
+    side TEXT,
+    type TEXT,
+    rarity TEXT,
+    icon_image TEXT,
+    card_art TEXT,
+    has_eza INTEGER,
+    has_seza INTEGER,
+    release_date TEXT,
+    eza_release_date TEXT,
+    seza_release_date TEXT,
+    previous_awakening INTEGER,
+    next_awakening INTEGER,
+    team_cost INTEGER
 );
 
 CREATE TABLE IF NOT EXISTS stats (
@@ -102,7 +115,7 @@ CREATE TABLE IF NOT EXISTS supers (
 -- Stores all links in game
 CREATE TABLE IF NOT EXISTS links_list (
     link_id INTEGER PRIMARY KEY,
-    link_name
+    link_name TEXT
 );
 
 -- Create links_character table
@@ -118,7 +131,7 @@ CREATE TABLE IF NOT EXISTS links_character (
 -- Stores all categories in game
 CREATE TABLE IF NOT EXISTS categories_list (
     category_id INTEGER PRIMARY KEY,
-    category_name
+    category_name TEXT
 );
 
 -- Create categories_character table
@@ -131,7 +144,7 @@ CREATE TABLE IF NOT EXISTS categories_character (
     PRIMARY KEY (char_id, category_id)
 );
 
-CREATE TABLE IF NOT EXISTS eza_connector(
+CREATE TABLE IF NOT EXISTS eza_connector (
     eza_conn_id INTEGER PRIMARY KEY,
     char_id INTEGER,
     base_id INTEGER,
