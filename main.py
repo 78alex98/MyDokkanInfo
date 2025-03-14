@@ -29,4 +29,4 @@ PopulateDatabase(db_file, passive_file)
 PopulateDatabase(db_file, detailsconnect_file)
 PopulateDatabase(db_file, ezaconn_file)
 
-PrintCharacters(db_file)
+PrintSimpleCharacters(db_file)
