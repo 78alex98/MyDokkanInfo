@@ -6,11 +6,13 @@ import sqlite3
 InitializeDatabase() Funtion
 
 Parameters: Database File Path, Query File Path
+Properties:
+    - bool suppress_text : Change whether the function should print out debug text
 
 Executes the SQL commands located in create_tables.sql 
 file to create necessary tables for the database
 """
-def InitializeDatabase(db_name, file_path):
+def InitializeDatabase(db_name, file_path, suppress_text=True):
     # Opens .sql File
     with open(file_path, 'r') as file:
         sql_queries = file.read()
@@ -25,18 +27,21 @@ def InitializeDatabase(db_name, file_path):
     # Commits Changes and Close Connection
     conn.commit()
     conn.close()
-    print(f"Database setup complete via {file_path}")
+    if suppress_text == False:
+        print(f"Database setup complete via {file_path}")
 
 """
 PopulateDatabase() Funtion
 
 Parameters: Database File Path, Query File Path
+Properties:
+    - bool suppress_text : Change whether the function should print out debug text
 
 Executes the SQL commands located in populate_tables.sql 
 file to populate the tables located in the database with
 the information
 """
-def PopulateDatabase(db_name, file_path):
+def PopulateDatabase(db_name, file_path, suppress_text=True):
     # Open the .sql file
     with open(file_path, 'r') as file:
         sql_queries = file.read()
@@ -51,7 +56,8 @@ def PopulateDatabase(db_name, file_path):
     # Commits Changes and Close Connection
     conn.commit()
     conn.close()
-    print(f"Database population complete from {file_path}")
+    if suppress_text == False:
+        print(f"Database population complete from {file_path}")
 
 """
 PrintCharacters() Funtion
