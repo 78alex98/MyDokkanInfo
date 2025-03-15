@@ -1,18 +1,52 @@
 -- Drop existing tables if they exist
 DROP TABLE IF EXISTS characters;
+DROP TABLE IF EXISTS stats;
+DROP TABLE IF EXISTS details_leader;
+DROP TABLE IF EXISTS details_passive;
+DROP TABLE IF EXISTS details_combined;
+DROP TABLE IF EXISTS supers;
 DROP TABLE IF EXISTS links_list;
 DROP TABLE IF EXISTS links_character;
 DROP TABLE IF EXISTS categories_list;
 DROP TABLE IF EXISTS categories_character;
-DROP TABLE IF EXISTS details_leader;
-DROP TABLE IF EXISTS details_passive;
-DROP TABLE IF EXISTS details_combined;
+DROP TABLE IF EXISTS eza_connector;
+
 
 -- Create characters table
 CREATE TABLE IF NOT EXISTS characters (
     char_id INTEGER PRIMARY KEY,
     name TEXT,
-    type TEXT
+    sub_name TEXT,
+    side TEXT,
+    type TEXT,
+    rarity TEXT,
+    icon_image TEXT,
+    card_art TEXT,
+    has_eza INTEGER,
+    has_seza INTEGER,
+    release_date TEXT,
+    eza_release_date TEXT,
+    seza_release_date TEXT,
+    previous_awakening INTEGER,
+    next_awakening INTEGER,
+    team_cost INTEGER
+);
+
+CREATE TABLE IF NOT EXISTS stats (
+    stat_id INTEGER PRIMARY KEY,
+    char_id INTEGER,
+    base INTEGER,
+    max_lvl INTEGER,
+    unlocked55 INTEGER,
+    unlocked69 INTEGER,
+    unlocked79 INTEGER,
+    unlocked90 INTEGER,
+    unlocked100 INTEGER,
+    ki_multi_0 INTEGER,
+    ki_multi_3 INTEGER,
+    ki_multi_12 INTEGER,
+    ki_multi_24 INTEGER,
+    FOREIGN KEY (char_id) REFERENCES characters(char_id) ON DELETE CASCADE
 );
 
 -- Create details_leader table
@@ -60,11 +94,28 @@ CREATE TABLE IF NOT EXISTS details_combined (
     PRIMARY KEY (char_id, leader1_id, passive_id)
 );
 
+-- Create Supers table
+-- Stores the Super Attack Details of the Character
+CREATE TABLE IF NOT EXISTS supers (
+    super_id INTEGER PRIMARY KEY,
+    char_id INTEGER,
+    sa_name TEXT,
+    sa_ki INTEGER,
+    sa_type TEXT,
+    sa_desc TEXT,
+    sa_dmg_multiplier_1 INTEGER,
+    sa_dmg_multiplier_10 INTEGER,
+    sa_dmg_multiplier_15 INTEGER,
+    sa_dmg_multiplier_20 INTEGER,
+    sa_dmg_multiplier_25 INTEGER,
+    FOREIGN KEY (char_id) REFERENCES characters(char_id) ON DELETE CASCADE
+);
+
 -- Create links_list table
 -- Stores all links in game
 CREATE TABLE IF NOT EXISTS links_list (
     link_id INTEGER PRIMARY KEY,
-    link_name
+    link_name TEXT
 );
 
 -- Create links_character table
@@ -80,7 +131,7 @@ CREATE TABLE IF NOT EXISTS links_character (
 -- Stores all categories in game
 CREATE TABLE IF NOT EXISTS categories_list (
     category_id INTEGER PRIMARY KEY,
-    category_name
+    category_name TEXT
 );
 
 -- Create categories_character table
@@ -91,4 +142,13 @@ CREATE TABLE IF NOT EXISTS categories_character (
     FOREIGN KEY (char_id) REFERENCES characters(char_id) ON DELETE CASCADE,
     FOREIGN KEY (category_id) REFERENCES categories_list(category_id) ON DELETE CASCADE,
     PRIMARY KEY (char_id, category_id)
+);
+
+CREATE TABLE IF NOT EXISTS eza_connector (
+    eza_conn_id INTEGER PRIMARY KEY,
+    char_id INTEGER,
+    base_id INTEGER,
+    eza_id INTEGER,
+    seza_id INTEGER,
+    FOREIGN KEY (char_id) REFERENCES characters(char_id) ON DELETE CASCADE
 );
